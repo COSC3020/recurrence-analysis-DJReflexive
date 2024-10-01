@@ -63,19 +63,24 @@ Expanded out a few iterations:\
     $T(n) = 18T(n/18) + 9\Theta(n^5) + 3\Theta(n^5) + \Theta(n^5)$
 
 Generate a pattern:
+
 $$T(n) = 3^k * T(n/3^k) + k * \Theta(n^5)$$
 
 Plug in $k = log{_3}n$:
+
 $$T(n) = n * T(1) + log{_3}n * \Theta(n^5)$$
 
 We know that $T(1)$ is a constant runtime operation, so $T(1) = \Theta(1)$. 
 Now we can simplify even further:
+
 $$T(n) = n * \Theta(1) + log{_3}n * \Theta(n^5)$$
 
 Which simplified gives:
+
 $$T(n) = \Theta(n) + \Theta(n^5*log{_3}n)$$
 
 Since the $\Theta(n)$ is negligible, the final time complexity is 
+
 $$T(n) \in \Theta(n^5*log{_3}n)$$
 
 
