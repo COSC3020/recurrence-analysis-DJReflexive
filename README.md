@@ -30,3 +30,76 @@ function mystery(n) {
 Add your answer to this markdown file. [This
 page](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions)
 might help with the notation for mathematical expressions.
+
+
+
+# My Analysis
+
+The base case of this recursive algorithm states that if n is less than or 
+equal to 1, then it will return. In the case that the input is 1 or less, 
+this algorithm has a constant runtime. However, when n is greater than 1, 
+things get more intersting.
+
+Looking at the algorithm, it can be boiled down to 3 recursive calls and a 
+triple-nested for loop. Starting with the nested for loop, the base for 
+loop (with the iterator 'k'), we see that it will complete n\*n times since 
+k will only ever iterate by 1. Similarly, with the second for loop (with 
+the iterator 'j'), we see it will complete n times, and for the last for 
+loop (with the iterator 'i'), it will run n\*n times. Written out, we can 
+write $\Theta(n^2\*n\*n^2)$ or simplify to $\Theta(n^5)$.
+
+We also see that there are 3 seperate non-nested recursive calls where the 
+input n is divided by 3. Written into a recursive relation, we get: 
+
+$$T(n) = 3T(n/3) + n^5$$
+
+Expanded out a few iterations:\
+    $T(n) = 3(3T(n/9) + (n/3)^5) + n^5$\
+    $T(n) = 9T(n/9) + 3(n/3)^5 + n^5$\
+    \
+    $T(n) = 3(9T(n/27) + 3(n/9)^5 + (n/3)^5) + n^5$\
+    $T(n) = 27T(n/27) + 9(n/9)^5 + 3(n/3)^5 + n^5$
+
+Generate a pattern:
+
+$$T(n) = 3^k * T(n/3^k) + n^5 * \sum_{i=0}^{k-1} 1/3^4i$$
+
+Plug in $k = log{_3}n$:
+
+$$T(n) = 3^(log{_3}n) * T(n/(3^(log{_3}n)) + n^5 * \sum_{i=0}^{log{_3}n} 1/3^4i)$$
+
+Which simplifies to:
+
+$$T(n) = n * T(1) + n^5$$
+
+We know that $T(1)$ is a constant runtime operation, so $T(1) = \Theta(1)$. 
+Now we can simplify even further:
+
+$$T(n) \in n * \Theta(1) + n^5$$
+
+Which simplifies to:
+
+$$T(n) \in \Theta(n) + n^5$$
+
+Since the $\Theta(n)$ is negligible, the final time complexity is 
+
+$$T(n) \in \Theta(n^5)$$
+
+
+
+# Sources
+
+- ChatGPT: For the quick explanation and example of what a tight bounded
+            complexity and loosely bounded complexity looks like.
+
+- TA Ali: Helped double check my math (particularly the summations and how 
+            to simplify big $\Theta$ form).
+
+
+# Plagiarism Acknowledge
+
+I certify that I have listed all sources used to complete this exercise, 
+including the use of any Large Language Models. All of the work is my own, 
+except where stated otherwise. I am aware that plagiarism carries severe 
+penalties and that if plagiarism is suspected, charges may be filed against 
+me without prior notice.
