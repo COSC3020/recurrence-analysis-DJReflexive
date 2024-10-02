@@ -51,33 +51,39 @@ write $\Theta(n^2\*n\*n^2)$ or simplify to $\Theta(n^5)$.
 We also see that there are 3 seperate non-nested recursive calls where the 
 input n is divided by 3. Written into a recursive relation, we get: 
 
-$$T(n) = 3T(n/3)$$
+$$T(n) = 3T(n/3) + n^5$$
 
 Expanded out a few iterations:\
-    $T(n) = 3(3T(n/9))$\
-    $T(n) = 9T(n/9)$\
-    $T(n) = 18T(n/18)$
+    $T(n) = 3(3T(n/9) + (n/3)^5) + n^5$\
+    $T(n) = 9T(n/9) + 3(n/3)^5 + n^5$\
+    \
+    $T(n) = 3(9T(n/27) + 3(n/9)^5 + (n/3)^5) + n^5$\
+    $T(n) = 27T(n/27) + 9(n/9)^5 + 3(n/3)^5 + n^5$
 
 Generate a pattern:
 
-$$T(n) = 3^k * T(n/3^k)$$
+$$T(n) = 3^k * T(n/3^k) + n^5 * \sum_{i=0}^{k-1} 1/3^4i$$
 
 Plug in $k = log{_3}n$:
 
-$$T(n) = n * T(1)$$
+$$T(n) = 3^(log{_3}n) * T(n/(3^(log{_3}n)) + n^5 * \sum_{i=0}^{log{_3}n} 1/3^4i)$$
+
+Which simplifies to:
+
+$$T(n) = n * T(1) + n^5$$
 
 We know that $T(1)$ is a constant runtime operation, so $T(1) = \Theta(1)$. 
 Now we can simplify even further:
 
-$$T(n) = n * \Theta(1)$$
+$$T(n) \in n * \Theta(1) + n^5$$
 
-By simplifying and adding the time complexity of the triple-nest for loops:
+Which simplifies to:
 
-$$T(n) = \Theta(n) + \Theta(n^5)$$
+$$T(n) \in \Theta(n) + n^5$$
 
 Since the $\Theta(n)$ is negligible, the final time complexity is 
 
-$$T(n) \in \Theta(n^5*log{_3}n)$$
+$$T(n) \in \Theta(n^5)$$
 
 
 
@@ -85,6 +91,9 @@ $$T(n) \in \Theta(n^5*log{_3}n)$$
 
 - ChatGPT: For the quick explanation and example of what a tight bounded
             complexity and loosely bounded complexity looks like.
+
+- TA Ali: Helped double check my math (particularly the summations and how 
+            to simplify big $\Theta$ form).
 
 
 # Plagiarism Acknowledge
